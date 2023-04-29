@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/manufacturers")
@@ -28,6 +29,11 @@ public class ManufacturerController {
     public ResponseEntity<List<ManufacturerDto>> getAllManufacturers() {
         List<ManufacturerDto> savedManufacturers = manufacturerService.fetchAllManufacturers();
         return ResponseEntity.status(HttpStatus.OK).body(savedManufacturers);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<ManufacturerDto>> getManufacturerBasedOnId(@PathVariable("id") int id) {
+       return ResponseEntity.ok(manufacturerService.getManufacturerForId(id));
     }
 
 }
