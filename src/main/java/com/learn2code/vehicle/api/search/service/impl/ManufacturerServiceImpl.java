@@ -8,6 +8,9 @@ import com.learn2code.vehicle.api.search.service.ManufacturerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class ManufacturerServiceImpl implements ManufacturerService {
@@ -20,5 +23,11 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         Manufacturer savedManufacturer = manufacturerRepository.save(manufacturer);
         ManufacturerDto savedManufacturerDto = ManufacturerMapper.mapToManufactureDto(manufacturer);
         return savedManufacturerDto;
+    }
+
+    @Override
+    public List<ManufacturerDto> fetchAllManufacturers() {
+        List<Manufacturer> manufacturers = manufacturerRepository.findAll();
+        return manufacturers.stream().map(ManufacturerMapper::mapToManufactureDto).collect(Collectors.toList());
     }
 }
