@@ -1,6 +1,7 @@
 package com.learn2code.vehicle.api.search.controller;
 
 import com.learn2code.vehicle.api.search.entity.Manufacturer;
+import com.learn2code.vehicle.api.search.exception.ManufacturerNotFoundException;
 import com.learn2code.vehicle.api.search.payload.ManufacturerDto;
 import com.learn2code.vehicle.api.search.service.ManufacturerService;
 import lombok.AllArgsConstructor;
@@ -32,8 +33,8 @@ public class ManufacturerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<ManufacturerDto>> getManufacturerBasedOnId(@PathVariable("id") int id) {
-       return ResponseEntity.ok(manufacturerService.getManufacturerForId(id));
+    public ResponseEntity<ManufacturerDto> getManufacturerBasedOnId(@PathVariable("id") int id) {
+        return ResponseEntity.ok(manufacturerService.getManufacturerForId(id));
     }
 
 }
