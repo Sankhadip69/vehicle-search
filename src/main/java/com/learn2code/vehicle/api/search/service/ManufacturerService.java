@@ -11,7 +11,7 @@ public interface ManufacturerService {
 
     List<ManufacturerDto> fetchAllManufacturers();
 
-    Optional<ManufacturerDto> getManufacturerForId(int id);
+    ManufacturerDto getManufacturerForId(int id);
 
 
 }

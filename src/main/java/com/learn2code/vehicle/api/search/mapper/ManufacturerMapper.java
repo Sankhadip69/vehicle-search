@@ -2,24 +2,12 @@ package com.learn2code.vehicle.api.search.mapper;
 
 import com.learn2code.vehicle.api.search.entity.Manufacturer;
 import com.learn2code.vehicle.api.search.payload.ManufacturerDto;
+import org.mapstruct.Mapper;
 
-public class ManufacturerMapper {
+@Mapper
+public interface ManufacturerMapper {
 
-    public static ManufacturerDto mapToManufactureDto(Manufacturer manufacturer) {
-        ManufacturerDto manufacturerDto = new ManufacturerDto(
-          manufacturer.getId(),
-          manufacturer.getManufacturerName(),
-          manufacturer.getCountryOfOrigin()
-        );
-        return manufacturerDto;
-    }
+    ManufacturerDto mapToManufacturerDto(Manufacturer manufacturer);
+    Manufacturer mapToManufacturer(ManufacturerDto manufacturerDto);
 
-    public static Manufacturer mapToManufacturer(ManufacturerDto manufacturerDto) {
-        Manufacturer manufacturer = new Manufacturer(
-          manufacturerDto.getId(),
-          manufacturerDto.getManufacturerName(),
-          manufacturerDto.getCountryOfOrigin()
-        );
-        return manufacturer;
-    }
 }
