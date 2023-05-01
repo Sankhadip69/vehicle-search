@@ -2,11 +2,15 @@ package com.learn2code.vehicle.api.search.controller;
 
 import com.learn2code.vehicle.api.search.entity.Manufacturer;
 import com.learn2code.vehicle.api.search.exception.ManufacturerNotFoundException;
+import com.learn2code.vehicle.api.search.exception.MissingFieldException;
 import com.learn2code.vehicle.api.search.payload.ManufacturerDto;
 import com.learn2code.vehicle.api.search.service.ManufacturerService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,5 +40,12 @@ public class ManufacturerController {
     public ResponseEntity<ManufacturerDto> getManufacturerBasedOnId(@PathVariable("id") int id) {
         return ResponseEntity.ok(manufacturerService.getManufacturerForId(id));
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<ManufacturerDto> updateManufacturer(@PathVariable int id, @Valid 
+                                                @RequestBody ManufacturerDto manufacturerDto){
+        ManufacturerDto updateManufacturer = manufacturerService.updateManufacturer(manufacturerDto, id);
+        return new ResponseEntity<>(updateManufacturer,HttpStatus.OK);
+    }
+
 
 }

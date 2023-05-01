@@ -13,5 +13,7 @@ public interface ManufacturerService {
 
     ManufacturerDto getManufacturerForId(int id);
 
+    ManufacturerDto updateManufacturer(ManufacturerDto manufacturerDto, int id);
+
 
 }
