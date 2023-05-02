@@ -46,6 +46,11 @@ public class ManufacturerController {
         ManufacturerDto updateManufacturer = manufacturerService.updateManufacturer(manufacturerDto, id);
         return new ResponseEntity<>(updateManufacturer,HttpStatus.OK);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteManufacturer(@PathVariable int id) {
+        manufacturerService.deleteManufacturerById(id);
+        return new ResponseEntity<>("Manufacturer deleted from DB with ID- "+id, HttpStatus.OK);
+    }
 
 
 }

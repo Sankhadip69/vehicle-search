@@ -63,5 +63,14 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         }
     }
 
+    @Override
+    public void deleteManufacturerById(int id) {
+        Manufacturer manufacturer = manufacturerRepository.findById(id).orElseThrow(
+                () -> new ManufacturerNotFoundException("manufacturer", "id", id)
+        );
+        manufacturerRepository.deleteById(id);
+
+    }
+
 
 }
