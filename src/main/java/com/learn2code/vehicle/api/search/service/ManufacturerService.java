@@ -15,5 +15,7 @@ public interface ManufacturerService {
 
     ManufacturerDto updateManufacturer(ManufacturerDto manufacturerDto, int id);
 
+    void deleteManufacturerById(int id);
+
 
 }
