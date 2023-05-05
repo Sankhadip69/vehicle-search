@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "manufacturer")
 @Data
@@ -21,6 +23,7 @@ public class Manufacturer {
     @Column(name = "manufacturer_name")
     private String manufacturerName;
 
-
     private String countryOfOrigin;
+
+
 }
