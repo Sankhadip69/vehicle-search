@@ -1,7 +1,9 @@
 package com.learn2code.vehicle.api.search.payload;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.learn2code.vehicle.api.search.entity.Manufacturer;
 import com.learn2code.vehicle.api.search.entity.Model;
 import com.learn2code.vehicle.api.search.entity.TrimType;
 import jakarta.persistence.*;
@@ -20,4 +22,5 @@ public class ModelDto {
     private int id;
     private String modelName;
     private List<TrimTypeDto> trimTypeList;
+    private Manufacturer manufacturer;
 }
