@@ -12,5 +12,10 @@ public interface ModelTrimService {
 
     TrimTypeDto saveTrimType(TrimTypeDto trimTypeDto);
 
+
     List<ModelDto> getAllModels();
+
+    ModelDto modifyModelDto(ModelDto modelDto, int id);
+
+    TrimTypeDto modifyTrimTypeDto(TrimTypeDto trimTypeDto, int id);
 }
