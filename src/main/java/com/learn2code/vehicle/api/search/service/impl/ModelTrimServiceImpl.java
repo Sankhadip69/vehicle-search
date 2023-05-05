@@ -11,6 +11,9 @@ import com.learn2code.vehicle.api.search.service.ModelTrimService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class ModelTrimServiceImpl implements ModelTrimService {
@@ -34,5 +37,11 @@ public class ModelTrimServiceImpl implements ModelTrimService {
         return trimTypeMapper
                 .mapToTrimTypeDto(trimTypeRepository
                         .save(trimTypeMapper.mapToTrimType(trimTypeDto)));
+    }
+
+    @Override
+    public List<ModelDto> getAllModels() {
+        return modelRepository.findAll().stream().map(modelMapper::mapToModelDto)
+                .collect(Collectors.toList());
     }
 }
