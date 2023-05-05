@@ -39,4 +39,16 @@ public class ModelTrimController {
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ModelDto> updateModel(@RequestBody ModelDto modelDto, @PathVariable int id) {
+        ModelDto modifiedModelDto = modelTrimService.modifyModelDto(modelDto, id);
+        return new ResponseEntity<>(modifiedModelDto, HttpStatus.OK);
+    }
+
+    @PutMapping("/trim-type/{id}")
+    public ResponseEntity<TrimTypeDto> updateTrimType(@RequestBody TrimTypeDto trimTypeDto, @PathVariable int id) {
+        TrimTypeDto modifiedTrimTypeDto = modelTrimService.modifyTrimTypeDto(trimTypeDto, id);
+        return  ResponseEntity.ok(modifiedTrimTypeDto);
+    }
 }

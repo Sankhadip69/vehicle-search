@@ -18,10 +18,5 @@ public class TrimType {
     @Column(name = "trim_type")
     private String trimType;
 
-    /*@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinTable(name = "model_trim",
-        joinColumns = @JoinColumn(name = "trim_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "model_id", referencedColumnName = "id")
-    )
-    private List<Model> modelList; */
+
 }

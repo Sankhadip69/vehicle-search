@@ -34,4 +34,26 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ModelNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleModelNotFound(ModelNotFoundException ex, WebRequest webRequest) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                LocalDateTime.now(),
+                ex.getMessage(),
+                webRequest.getDescription(false),
+                "NOT_FOUND"
+        );
+        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TrimTypeNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTrimTypeNotFound(TrimTypeNotFoundException ex, WebRequest webRequest) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                LocalDateTime.now(),
+                ex.getMessage(),
+                webRequest.getDescription(false),
+                "NOT_FOUND"
+        );
+        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+    }
 }
