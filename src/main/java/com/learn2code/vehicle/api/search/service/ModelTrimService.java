@@ -18,4 +18,8 @@ public interface ModelTrimService {
     ModelDto modifyModelDto(ModelDto modelDto, int id);
 
     TrimTypeDto modifyTrimTypeDto(TrimTypeDto trimTypeDto, int id);
+
+    void deleteModelById(int id);
+
+    void deleteTrimType(int id);
 }

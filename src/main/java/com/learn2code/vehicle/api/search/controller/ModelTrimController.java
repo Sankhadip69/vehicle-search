@@ -51,4 +51,11 @@ public class ModelTrimController {
         TrimTypeDto modifiedTrimTypeDto = modelTrimService.modifyTrimTypeDto(trimTypeDto, id);
         return  ResponseEntity.ok(modifiedTrimTypeDto);
     }
+
+   /* @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteModel(@PathVariable int id) {
+        modelTrimService.deleteModelById(id);
+        return new ResponseEntity<>("Model is deleted from DB for ID-"+id, HttpStatus.OK);
+    }*/
+
 }
