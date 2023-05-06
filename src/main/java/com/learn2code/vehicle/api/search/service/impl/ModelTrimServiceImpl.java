@@ -82,4 +82,20 @@ public class ModelTrimServiceImpl implements ModelTrimService {
             throw new TrimTypeNotFoundException("TrimType not found for id: " + id);
         }
     }
+
+    @Override
+    public void deleteModelById(int id) {
+        modelRepository.findById(id).orElseThrow(
+                ()-> new ModelNotFoundException("Model not found for id: " + id)
+        );
+        modelRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteTrimType(int id) {
+        trimTypeRepository.findById(id).orElseThrow(
+                ()-> new TrimTypeNotFoundException("TrimType not found for id: " + id)
+        );
+        trimTypeRepository.deleteById(id);
+    }
 }
