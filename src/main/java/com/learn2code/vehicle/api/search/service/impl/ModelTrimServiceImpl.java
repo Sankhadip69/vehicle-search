@@ -1,13 +1,16 @@
 package com.learn2code.vehicle.api.search.service.impl;
 
+import com.learn2code.vehicle.api.search.entity.Manufacturer;
 import com.learn2code.vehicle.api.search.entity.Model;
 import com.learn2code.vehicle.api.search.entity.TrimType;
+import com.learn2code.vehicle.api.search.exception.ManufacturerNotFoundException;
 import com.learn2code.vehicle.api.search.exception.ModelNotFoundException;
 import com.learn2code.vehicle.api.search.exception.TrimTypeNotFoundException;
 import com.learn2code.vehicle.api.search.mapper.ModelMapper;
 import com.learn2code.vehicle.api.search.mapper.TrimTypeMapper;
 import com.learn2code.vehicle.api.search.payload.ModelDto;
 import com.learn2code.vehicle.api.search.payload.TrimTypeDto;
+import com.learn2code.vehicle.api.search.repository.ManufacturerRepository;
 import com.learn2code.vehicle.api.search.repository.ModelRepository;
 import com.learn2code.vehicle.api.search.repository.TrimTypeRepository;
 import com.learn2code.vehicle.api.search.service.ModelTrimService;
@@ -24,6 +27,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ModelTrimServiceImpl implements ModelTrimService {
 
+    private ManufacturerRepository manufacturerRepository;
     private ModelRepository modelRepository;
 
     private TrimTypeRepository trimTypeRepository;
@@ -97,5 +101,29 @@ public class ModelTrimServiceImpl implements ModelTrimService {
                 ()-> new TrimTypeNotFoundException("TrimType not found for id: " + id)
         );
         trimTypeRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ModelDto> getModelsByManufacturerId(int id) {
+        Optional<Manufacturer> optionalId = manufacturerRepository.findById(id);
+        if(!optionalId.isPresent()) {
+            throw new ManufacturerNotFoundException("No Manufacturer found in DB for ID"+id);
+        }
+        List<Model> dbModel = modelRepository.findByManufacturerId(id);
+        return dbModel.stream().map(modelMapper::mapToModelDto)
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<ModelDto> getModelsByManufacturerName(String manufacturerName) {
+        Manufacturer dbManufacturer = manufacturerRepository.findByManufacturerName(manufacturerName);
+        if(dbManufacturer == null) {
+            throw new ManufacturerNotFoundException("No Manufacturer found in DB for name-"+manufacturerName );
+        }
+        int manufacturerId = dbManufacturer.getId();
+        List<Model> dbModels = modelRepository.fetchModelsBasedManufacturerId(manufacturerId);
+        return dbModels.stream().map(modelMapper::mapToModelDto)
+                .collect(Collectors.toList());
     }
 }

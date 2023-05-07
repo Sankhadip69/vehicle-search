@@ -22,5 +22,6 @@ public class ModelDto {
     private int id;
     private String modelName;
     private List<TrimTypeDto> trimTypeList;
+
     private Manufacturer manufacturer;
 }

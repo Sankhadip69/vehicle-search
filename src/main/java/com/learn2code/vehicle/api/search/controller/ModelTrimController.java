@@ -2,6 +2,7 @@ package com.learn2code.vehicle.api.search.controller;
 
 import com.learn2code.vehicle.api.search.entity.Model;
 import com.learn2code.vehicle.api.search.entity.TrimType;
+import com.learn2code.vehicle.api.search.exception.ModelNotFoundException;
 import com.learn2code.vehicle.api.search.payload.ModelDto;
 import com.learn2code.vehicle.api.search.payload.TrimTypeDto;
 import com.learn2code.vehicle.api.search.service.ModelTrimService;
@@ -57,5 +58,25 @@ public class ModelTrimController {
         modelTrimService.deleteModelById(id);
         return new ResponseEntity<>("Model is deleted from DB for ID-"+id, HttpStatus.OK);
     }*/
+
+    @GetMapping("/manufacturer/{manufacturerId}")
+    public ResponseEntity<List<ModelDto>> findallModelsForManufacturer(@PathVariable int manufacturerId) {
+        List<ModelDto> allModels = modelTrimService.getModelsByManufacturerId(manufacturerId);
+        if(allModels.size() > 0 ) {
+            return new ResponseEntity<>(allModels, HttpStatus.OK);
+        }else {
+            throw new ModelNotFoundException("No models found in DB for manufacturer with ID-"+manufacturerId);
+        }
+    }
+
+    @GetMapping("/manufacturer/{manufacturerName}")
+    public ResponseEntity<List<ModelDto>> findAllModelsForManufacturerName(@PathVariable String manufacturerName) {
+        List<ModelDto> dbModelsList = modelTrimService.getModelsByManufacturerName(manufacturerName);
+        if(dbModelsList.size() > 0 ) {
+            return new ResponseEntity<>(dbModelsList, HttpStatus.OK);
+        }else {
+            throw new ModelNotFoundException("No models found in DB for manufacturer with name-"+manufacturerName);
+        }
+    }
 
 }
