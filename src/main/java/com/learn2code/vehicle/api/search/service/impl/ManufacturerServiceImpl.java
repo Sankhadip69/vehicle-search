@@ -40,7 +40,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     @Override
     public ManufacturerDto getManufacturerForId(int id) {
         Manufacturer dbManufacturer = manufacturerRepository.findById(id).orElseThrow(
-                () -> new ManufacturerNotFoundException("manufacturer", "id", id)
+                () -> new ManufacturerNotFoundException("No Manufacturer found in DB for ID"+id)
         );
         return manufacturerMapper.mapToManufacturerDto(dbManufacturer);
     }
@@ -66,7 +66,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     @Override
     public void deleteManufacturerById(int id) {
         Manufacturer manufacturer = manufacturerRepository.findById(id).orElseThrow(
-                () -> new ManufacturerNotFoundException("manufacturer", "id", id)
+                () -> new ManufacturerNotFoundException("No Manufacturer found in DB for ID"+id)
         );
         manufacturerRepository.deleteById(id);
 

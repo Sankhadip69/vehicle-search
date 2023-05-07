@@ -22,4 +22,8 @@ public interface ModelTrimService {
     void deleteModelById(int id);
 
     void deleteTrimType(int id);
+
+    List<ModelDto> getModelsByManufacturerId(int id);
+
+    List<ModelDto> getModelsByManufacturerName(String manufacturerName);
 }
