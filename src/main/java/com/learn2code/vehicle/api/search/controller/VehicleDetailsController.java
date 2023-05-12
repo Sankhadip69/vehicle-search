@@ -1,12 +1,14 @@
 package com.learn2code.vehicle.api.search.controller;
 
 import com.learn2code.vehicle.api.search.payload.ClientVehicleDetailsDto;
+import com.learn2code.vehicle.api.search.payload.VehicleDetailDto;
 import com.learn2code.vehicle.api.search.payload.VehicleDetailPayLoad;
 import com.learn2code.vehicle.api.search.service.VehicleDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,5 +26,10 @@ public class VehicleDetailsController {
         List<ClientVehicleDetailsDto> allVehicleDetails = vehicleDetailsService.getAllVehicleDetails();
 
         return new ResponseEntity<>(allVehicleDetails, HttpStatus.OK);
+    }
+
+    @GetMapping("/{vehicleId}")
+    public ResponseEntity<VehicleDetailDto> fetchVehicleById(@PathVariable int vehicleId) {
+        return ResponseEntity.ok(vehicleDetailsService.getVehicleById(vehicleId));
     }
 }

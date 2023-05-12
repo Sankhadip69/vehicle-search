@@ -13,35 +13,30 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ManufacturerNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleManufacturerNotFoundException(ManufacturerNotFoundException exception,
-                                                                             WebRequest webRequest) {
+    public ResponseEntity<ErrorResponse> handleManufacturerNotFoundException(ManufacturerNotFoundException exception) {
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
                 exception.getMessage(),
-                webRequest.getDescription(false),
-                "USER_NOT_FOUND"
+                HttpStatus.NOT_FOUND
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MissingFieldException.class)
-    public ResponseEntity<ErrorResponse> handleMissingField(MissingFieldException ex, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponse> handleMissingField(MissingFieldException ex) {
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
+
                 ex.getMessage(),
-                webRequest.getDescription(false),
-                "BAD_REQUEST"
+                HttpStatus.BAD_REQUEST
         );
         return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ModelNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleModelNotFound(ModelNotFoundException ex, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponse> handleModelNotFound(ModelNotFoundException ex) {
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
+
                 ex.getMessage(),
-                webRequest.getDescription(false),
-                "NOT_FOUND"
+                HttpStatus.NOT_FOUND
         );
         return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
     }
@@ -49,11 +44,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(TrimTypeNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleTrimTypeNotFound(TrimTypeNotFoundException ex, WebRequest webRequest) {
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
+
                 ex.getMessage(),
-                webRequest.getDescription(false),
-                "NOT_FOUND"
+                HttpStatus.NOT_FOUND
         );
         return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(VehicleDetailsNotFound.class)
+    public ResponseEntity<ErrorResponse> handleVehicleDetailsNotFound(VehicleDetailsNotFound ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                HttpStatus.NOT_FOUND
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }
