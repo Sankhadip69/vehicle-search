@@ -10,4 +10,6 @@ public interface VehicleDetailsService {
 
    List<ClientVehicleDetailsDto> getAllVehicleDetails();
 
+   VehicleDetailDto getVehicleById(int vehicleId);
+
 }

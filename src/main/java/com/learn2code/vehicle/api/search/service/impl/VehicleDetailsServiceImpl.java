@@ -1,5 +1,6 @@
 package com.learn2code.vehicle.api.search.service.impl;
 
+import com.learn2code.vehicle.api.search.exception.VehicleDetailsNotFound;
 import com.learn2code.vehicle.api.search.payload.ClientVehicleDetailsDto;
 import com.learn2code.vehicle.api.search.payload.VehicleDetailDto;
 import com.learn2code.vehicle.api.search.payload.VehicleDetailPayLoad;
@@ -106,5 +107,16 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
             clientVehicleDetailsDto.setDealType("Bad Deal");
         }
         return clientVehicleDetailsDto;
+    }
+
+    @Override
+    public VehicleDetailDto getVehicleById(int vehicleId) {
+        VehicleDetailDto dbVehicle = null;
+        try {
+            dbVehicle = restTemplate.getForObject("http://localhost:9090/api/v1/vehicle-details/" + vehicleId, VehicleDetailDto.class);
+        }catch (Exception e) {
+            throw new VehicleDetailsNotFound("No vehicle details found in DB for ID- "+vehicleId);
+        }
+        return dbVehicle;
     }
 }
