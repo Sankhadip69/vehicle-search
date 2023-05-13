@@ -12,4 +12,6 @@ public interface VehicleDetailsService {
 
    VehicleDetailDto getVehicleById(int vehicleId);
 
+
+    List<ClientVehicleDetailsDto> fetchVehicleDetailsByCriteria(String modelYear, String brandName, String modelName, String trimType, double price);
 }

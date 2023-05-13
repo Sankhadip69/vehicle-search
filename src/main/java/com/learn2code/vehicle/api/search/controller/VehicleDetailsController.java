@@ -7,10 +7,7 @@ import com.learn2code.vehicle.api.search.service.VehicleDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,4 +29,15 @@ public class VehicleDetailsController {
     public ResponseEntity<VehicleDetailDto> fetchVehicleById(@PathVariable int vehicleId) {
         return ResponseEntity.ok(vehicleDetailsService.getVehicleById(vehicleId));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ClientVehicleDetailsDto>> searchVehicleByFilterCriteria(@RequestParam String modelYear,
+                                                                                       @RequestParam String brandName,
+                                                                                       @RequestParam String modelName,
+                                                                                       @RequestParam String trimType,
+                                                                                       @RequestParam double price) {
+        List<ClientVehicleDetailsDto> filterdVehicles = vehicleDetailsService.fetchVehicleDetailsByCriteria(modelYear,brandName,modelName,trimType,price);
+        return new ResponseEntity<>(filterdVehicles, HttpStatus.OK);
+    }
+
 }

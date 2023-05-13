@@ -13,9 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,7 +29,7 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
     public List<ClientVehicleDetailsDto> getAllVehicleDetails() {
 
         VehicleDetailPayLoad vehicleDetailPayLoad = restTemplate.getForObject(
-                "http://localhost:9090/api/v1/vehicle-details",
+                "http://localhost:9091/api/v1/vehicle-details",
                 VehicleDetailPayLoad.class);
 
         /*List<ClientVehicleDetailsDto> clientVehicleDetailsList =new ArrayList<>();
@@ -118,5 +116,20 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
             throw new VehicleDetailsNotFound("No vehicle details found in DB for ID- "+vehicleId);
         }
         return dbVehicle;
+    }
+
+    @Override
+    public List<ClientVehicleDetailsDto> fetchVehicleDetailsByCriteria(String modelYear, String brandName, String modelName, String trimType, double price) {
+        Map<String,String> params = new HashMap<>();
+        params.put("modelYear", modelYear);
+        params.put("brandName",brandName);
+        params.put("modelName",modelName);
+        params.put("price", String.valueOf(price));
+        String url = "http://localhost:9091/api/v1/vehicle-details/search?modelYear={modelYear}&brandName={brandName}&modelName={modelName}&trimType={trimType}&price={price}";
+        VehicleDetailPayLoad filteredList = restTemplate.getForObject(url, VehicleDetailPayLoad.class,params);
+        return filteredList
+                .getVehicleDetailsList().stream()
+                .map(vehicleDetailDto -> mapClientVehicleDetailsDtoFromVehicleDetailsDto(vehicleDetailDto))
+                .collect(Collectors.toList());
     }
 }
