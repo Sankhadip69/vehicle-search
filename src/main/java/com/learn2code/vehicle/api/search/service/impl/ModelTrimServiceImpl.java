@@ -76,9 +76,9 @@ public class ModelTrimServiceImpl implements ModelTrimService {
         Optional<TrimType> optionalTrimType = trimTypeRepository.findById(id);
         if(optionalTrimType.isPresent()) {
             TrimType trimType = optionalTrimType.get();
-            if(trimType.getTrimType() != null &&
-                    !trimType.getTrimType().isEmpty() &&
-                    !trimType.getTrimType().isBlank()) {
+            if(trimTypeDto.getTrimType() != null &&
+                    !trimTypeDto.getTrimType().isEmpty() &&
+                    !trimTypeDto.getTrimType().isBlank()) {
                 trimType.setTrimType(trimTypeDto.getTrimType());
             }
             return trimTypeMapper.mapToTrimTypeDto(trimTypeRepository.save(trimType));
