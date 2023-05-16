@@ -2,7 +2,6 @@ package com.learn2code.vehicle.api.search.controller;
 
 import com.learn2code.vehicle.api.search.payload.ClientVehicleDetailsDto;
 import com.learn2code.vehicle.api.search.payload.VehicleDetailDto;
-import com.learn2code.vehicle.api.search.payload.VehicleDetailPayLoad;
 import com.learn2code.vehicle.api.search.service.VehicleDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,7 +34,7 @@ public class VehicleDetailsController {
                                                                                        @RequestParam String brandName,
                                                                                        @RequestParam String modelName,
                                                                                        @RequestParam String trimType,
-                                                                                       @RequestParam double price) {
+                                                                                       @RequestParam Double price) {
         List<ClientVehicleDetailsDto> filterdVehicles = vehicleDetailsService.fetchVehicleDetailsByCriteria(modelYear,brandName,modelName,trimType,price);
         return new ResponseEntity<>(filterdVehicles, HttpStatus.OK);
     }

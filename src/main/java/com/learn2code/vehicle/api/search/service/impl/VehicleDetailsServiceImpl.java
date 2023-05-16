@@ -3,7 +3,7 @@ package com.learn2code.vehicle.api.search.service.impl;
 import com.learn2code.vehicle.api.search.exception.VehicleDetailsNotFound;
 import com.learn2code.vehicle.api.search.payload.ClientVehicleDetailsDto;
 import com.learn2code.vehicle.api.search.payload.VehicleDetailDto;
-import com.learn2code.vehicle.api.search.payload.VehicleDetailPayLoad;
+import com.learn2code.vehicle.api.search.payload.VehicleDetailListDto;
 import com.learn2code.vehicle.api.search.payload.VehicleMarketPriceDto;
 import com.learn2code.vehicle.api.search.service.VehicleDetailsService;
 import com.learn2code.vehicle.api.search.service.VehicleMarketPriceService;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,9 +27,9 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
     @Override
     public List<ClientVehicleDetailsDto> getAllVehicleDetails() {
 
-        VehicleDetailPayLoad vehicleDetailPayLoad = restTemplate.getForObject(
-                "http://localhost:9091/api/v1/vehicle-details",
-                VehicleDetailPayLoad.class);
+        VehicleDetailListDto vehicleDetailListDto = restTemplate.getForObject(
+                "http://localhost:9090/api/v1/vehicle-details",
+                VehicleDetailListDto.class);
 
         /*List<ClientVehicleDetailsDto> clientVehicleDetailsList =new ArrayList<>();
         ClientVehicleDetailsDto clientVehicleDetailsDto = null;
@@ -38,7 +37,7 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
             clientVehicleDetailsList.add(mapClientVehicleDetailsDtoFromVehicleDetailsDto(vehicleDetailDto));
         }
         return clientVehicleDetailsList; */
-        List<ClientVehicleDetailsDto> clientVehicleDetailsList = vehicleDetailPayLoad
+        List<ClientVehicleDetailsDto> clientVehicleDetailsList = vehicleDetailListDto
                 .getVehicleDetailsList().stream().map(vehicle ->
                         mapClientVehicleDetailsDtoFromVehicleDetailsDto(vehicle))
                 .collect(Collectors.toList());
@@ -125,8 +124,8 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
         params.put("brandName",brandName);
         params.put("modelName",modelName);
         params.put("price", String.valueOf(price));
-        String url = "http://localhost:9091/api/v1/vehicle-details/search?modelYear={modelYear}&brandName={brandName}&modelName={modelName}&trimType={trimType}&price={price}";
-        VehicleDetailPayLoad filteredList = restTemplate.getForObject(url, VehicleDetailPayLoad.class,params);
+        String url = "http://localhost:9090/api/v1/vehicle-details/search?modelYear={modelYear}&brandName={brandName}&modelName={modelName}&trimType={trimType}&price={price}";
+        VehicleDetailListDto filteredList = restTemplate.getForObject(url, VehicleDetailListDto.class,params);
         return filteredList
                 .getVehicleDetailsList().stream()
                 .map(vehicleDetailDto -> mapClientVehicleDetailsDtoFromVehicleDetailsDto(vehicleDetailDto))
